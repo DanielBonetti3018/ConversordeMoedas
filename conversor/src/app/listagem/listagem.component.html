@@ -1,7 +1,7 @@
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" class="full-width-table">
   
-      <!-- Define as colunas da tabela -->
+      
       <ng-container matColumnDef="symbol">
         <th mat-header-cell *matHeaderCellDef> Símbolo </th>
         <td mat-cell *matCellDef="let element"> {{ element.symbol }} </td>
@@ -12,18 +12,15 @@
         <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
       </ng-container>
   
-      <!-- Defina coluna de ações, se necessário -->
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Ações </th>
         <td mat-cell *matCellDef="let element">
-          <!-- Adicione ações aqui, se necessário -->
         </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-  
-    <!-- Adicione recursos de paginação, ordenação e pesquisa, se necessário -->
+
     <mat-paginator [pageSizeOptions]="[10, 25, 50]"></mat-paginator>
   </div>

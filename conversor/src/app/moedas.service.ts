@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MoedasService {
   private apiURL = 'https://v6.exchangerate-api.com/v6/';
-  private apiKey = '41f5f2a2a703d42977358d45'; 
+  private apiKey = 'ae18856577e1ff6b76241cba'; 
 
   constructor(private http: HttpClient) { }
 
