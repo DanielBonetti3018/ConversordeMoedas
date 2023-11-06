@@ -8,6 +8,8 @@ import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +40,7 @@ import { HistoricoComponent } from './historico/historico.component';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatCardModule,
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,

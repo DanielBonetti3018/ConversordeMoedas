@@ -1,6 +1,5 @@
-<div class="title-table">
-    
-</div>
+
+
 <div class="content">
     <div class="search">
         <mat-form-field>
@@ -10,27 +9,26 @@
     </div>
 
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" class="full-width-table">
+
+    <table mat-table [dataSource]="dataSource"  matSort class="table">
   
-      
       <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef> Símbolo </th>
-        <td mat-cell *matCellDef="let element"> {{ element.symbol }} </td>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Símbolo </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.symbol }} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Ações </th>
-        <td mat-cell *matCellDef="let element">
-        </td>
+        <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+        <mat-cell *matCellDef="let element"></mat-cell>
       </ng-container>
   
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </table>
 
     <mat-paginator [pageSizeOptions]="[10, 25, 50]"></mat-paginator>

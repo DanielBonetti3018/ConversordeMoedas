@@ -1,40 +1,66 @@
-/* Estilize o rótulo dos campos de formulário */
-.mat-form-field-label {
-    color: #333; /* Cor do texto do rótulo */
-  }
-  
-  /* Estilize as opções do seletor de material */
-  .mat-option {
-    background-color: #f5f5f5; /* Cor de fundo das opções */
-    color: #333; /* Cor do texto das opções */
-  }
-  
-  /* Estilize o botão de material */
-  button.mat-button {
-    background-color: #007bff; /* Cor de fundo do botão */
-    color: #fff; /* Cor do texto do botão */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button.mat-button:hover {
-    background-color: #0056b3; /* Cor de fundo do botão ao passar o mouse */
-  }
-  
-  /* Estilize o conteúdo dentro do bloco condicional *ngIf */
-  div *ngIf {
-    margin-top: 20px; /* Espaçamento superior do conteúdo condicional */
-    background-color: #e0e0e0; /* Cor de fundo do conteúdo condicional */
-    padding: 10px;
-    border-radius: 4px;
-    color: #333; /* Cor do texto do conteúdo condicional */
-  }
-  
-  /* Estilize as tags de parágrafo dentro do conteúdo condicional *ngIf */
-  div *ngIf p {
-    margin: 5px 0; /* Espaçamento entre os parágrafos */
-  }
-  
+
+
+.containerConversor {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.containerResponse{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40px;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.btn{
+  color: violet;
+}
+
+.button {
+  display: flex;
+  color: rgb(0, 255, 55);
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.text {
+  font-size: 20px;
+}
+
+.textConversao {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text-center{
+  margin-top: 30px;
+  font-size: 20px;
+  justify-items: center;
+  display: flex;
+  align-items: center;
+  padding: 30px;
+  margin-left: 130px;
+  margin-right: 130px;
+}
+
+.mat-mdc-card {
+  background-color: #f5f5f5;
+}
+
+.mat-card-content {
+  text-align: center;
+}

@@ -1,60 +1,89 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { MoedasService } from './../moedas.service';
 
+import { Component } from '@angular/core';
+import { HistoricoService } from '../historico/historico.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
-  selector: 'app-conversor',
+  selector: 'app-conversor-de-moedas',
   templateUrl: './conversor.component.html',
   styleUrls: ['./conversor.component.css']
 })
 export class ConversorComponent {
-  moedas: any[] = [];
-  Moedaorigem: string = '';
-  NewMoeda: string = '';
+  moedas: any[] = []; // Deve ser um array de objetos com propriedades 'name' e 'symbol'
+  moedaOrigem: string = 'selecione';
+  moedaDestino: string = '';
   valor: number = 0;
-  novoValor: number = 0;
-  taxaConversao: number = 0;
+  valorConvertido: number = 0;
+  taxaDeConversao: number = 0;
+  mostrarResultado: boolean = false;
 
-  constructor(private moedasService: MoedasService) {}
+  constructor(private moedaService: MoedasService, private historicoService: HistoricoService) {}
 
-  ngOnInit() {
-    this.carregarMoedas();
+  converterMoeda() {
+    if (this.moedaOrigem && this.moedaOrigem !== 'selecione' && this.moedaDestino && this.valor) {
+      this.moedaService.getExchangeRate(this.moedaOrigem, this.moedaDestino, this.valor).subscribe(
+        (response: any) => {
+          if (response.result === 'success' && response.conversion_rate) {
+            this.valorConvertido = response.conversion_result;
+            this.taxaDeConversao = response.conversion_rate;
+            this.mostrarResultado = true;
+
+            const id = uuidv4();
+            const conversao = {
+              id: id,
+              data: new Date(),
+              hora: new Date(),
+              moedaOrigem: this.moedaOrigem,
+              moedaDestino: this.moedaDestino,
+              valorEntrada: this.valor,
+              valorSaida: this.valorConvertido,
+              taxaConversao: this.taxaDeConversao
+            };
+            this.historicoService.adicionarConversao(conversao);
+            const conversaoString = JSON.stringify(conversao);
+            localStorage.setItem('conversao-1', conversaoString);
+          }
+        },
+        (error: any) => {
+          console.error('Erro na conversão de moeda:', error);
+        }
+      );
+    } else {
+      console.error('Por favor, preencha todos os campos antes de converter.');
+      const mensagemDeErro = 'Por favor, preencha todos os campos antes de converter.';
+      window.alert(mensagemDeErro);
+    }
   }
 
-  carregarMoedas() {
-    this.moedasService.getCurrenciesNames().subscribe(
+  ngOnInit() {
+    this.moedaService.getCurrenciesNames().subscribe(
       (response: any) => {
         if (response.result === 'success' && response.supported_codes) {
           this.moedas = response.supported_codes.map((currency: any) => {
             return {
-              nome: currency[1],
-              simbolo: currency[0]
+              name: currency[1],
+              symbol: currency[0]
             };
           });
         }
       },
       (error: any) => {
-        console.error('Erro ao listar as moedas:', error);
+        console.error('Erro ao obter a lista de moedas:', error);
       }
     );
   }
 
-  converterMoeda() {
-    if (this.Moedaorigem && this.NewMoeda && this.valor) {
-      this.moedasService.getExchangeRate(this.Moedaorigem, this.NewMoeda, this.valor).subscribe(
-        (response: any) => {
-          if (response.result === 'success' && response.conversion_result) {
-            this.novoValor = response.conversion_result;
-            this.taxaConversao = response.conversion_rate;
-          }
-        },
-        (error: any) => {
-          console.error('Erro:', error);
-        }
-      );
-    } else {
-      console.error('Preencha todos os Campos');
-    }
+  realizarNovaConversao() {
+    this.moedaOrigem = 'selecione';
+    this.moedaDestino = '';
+    this.valor = 0;
+    this.valorConvertido = 0;
+    this.taxaDeConversao = 0;
+    this.mostrarResultado = false;
   }
+
+
+
 }

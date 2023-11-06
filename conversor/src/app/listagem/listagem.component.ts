@@ -16,9 +16,7 @@ export class ListagemComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild('input', { static: true }) input: HTMLInputElement | undefined;
-  @ViewChild(MatPaginator, { static: true }) paginator:
-    | MatPaginator
-    | undefined;
+  @ViewChild(MatPaginator, { static: true }) paginator:| MatPaginator| undefined;
   @ViewChild(MatSort, { static: true }) sort?: MatSort | undefined;
 
   constructor(private moedasService: MoedasService) {}

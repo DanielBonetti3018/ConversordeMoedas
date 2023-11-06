@@ -28,8 +28,8 @@ export class HistoricoComponent {
 history: MatTableDataSource<IListHistory> = new MatTableDataSource<IListHistory>([]);
 
 @ViewChild('input', { static: true }) input: HTMLInputElement | undefined;
-@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
-@ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
+@ViewChild(MatPaginator, { static: true }) paginator:| MatPaginator| undefined;
+@ViewChild(MatSort, { static: true }) sort?: MatSort | undefined;
 
 constructor(private historicoService: HistoricoService) {
     this.history = new MatTableDataSource<IListHistory>([]);
