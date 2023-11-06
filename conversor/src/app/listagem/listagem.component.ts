@@ -6,21 +6,22 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { IListCurrencies } from '../model/IListCurrencies';
 
-
 @Component({
   selector: 'app-listagem',
   templateUrl: './listagem.component.html',
-  styleUrls: ['./listagem.component.css']
+  styleUrls: ['./listagem.component.css'],
 })
 export class ListagemComponent implements OnInit {
   displayedColumns: string[] = ['symbol', 'name', 'actions'];
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild('input', { static: true }) input: HTMLInputElement | undefined;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
-  @ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
+  @ViewChild(MatPaginator, { static: true }) paginator:
+    | MatPaginator
+    | undefined;
+  @ViewChild(MatSort, { static: true }) sort?: MatSort | undefined;
 
-  constructor(private moedasService: MoedasService) { }
+  constructor(private moedasService: MoedasService) {}
 
   ngOnInit() {
     if (this.paginator) {
@@ -33,12 +34,13 @@ export class ListagemComponent implements OnInit {
     this.moedasService.getCurrenciesNames().subscribe(
       (response) => {
         if (response.result === 'success' && response.supported_codes) {
-          const currenciesArray: IListCurrencies[] = response.supported_codes.map((currency: any) => {
-            return {
-              symbol: currency[0],
-              name: currency[1]
-            };
-          });
+          const currenciesArray: IListCurrencies[] =
+            response.supported_codes.map((currency: any) => {
+              return {
+                symbol: currency[0],
+                name: currency[1],
+              };
+            });
           this.dataSource.data = currenciesArray;
         }
       },
@@ -46,5 +48,10 @@ export class ListagemComponent implements OnInit {
         console.error('Erro na solicitação:', error);
       }
     );
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

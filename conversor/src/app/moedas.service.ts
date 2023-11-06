@@ -22,6 +22,8 @@ export class MoedasService {
       }
       return this.http.get(url);
     }
-  
 
-  }
+
+
+}
+  

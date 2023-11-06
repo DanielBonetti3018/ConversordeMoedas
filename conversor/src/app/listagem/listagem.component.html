@@ -1,3 +1,14 @@
+<div class="title-table">
+    
+</div>
+<div class="content">
+    <div class="search">
+        <mat-form-field>
+        <mat-label>filtro...</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. BRL" #input>
+        </mat-form-field>
+    </div>
+
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" class="full-width-table">
   

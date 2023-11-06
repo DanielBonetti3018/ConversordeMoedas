@@ -9,35 +9,52 @@ import { MoedasService } from './../moedas.service';
   styleUrls: ['./conversor.component.css']
 })
 export class ConversorComponent {
-  currencyForm: FormGroup;
-  currencies: any[]; // Array de moedas disponíveis
-  conversionResult: any;
+  moedas: any[] = [];
+  Moedaorigem: string = '';
+  NewMoeda: string = '';
+  valor: number = 0;
+  novoValor: number = 0;
+  taxaConversao: number = 0;
 
-  constructor(private formBuilder: FormBuilder, private moedasService: MoedasService) {
-    this.currencyForm = this.formBuilder.group({
-      fromCurrency: ['', Validators.required],
-      toCurrency: ['', Validators.required],
-      amount: [1, [Validators.required, Validators.min(1)]]
-    });
+  constructor(private moedasService: MoedasService) {}
+
+  ngOnInit() {
+    this.carregarMoedas();
   }
 
-  ngOnInit(): void {
-    // Buscar as moedas disponíveis do serviço
-    this.MoedasService.getAvailableCurrencies().subscribe(data => {
-      this.currencies = data;
-    });
+  carregarMoedas() {
+    this.moedasService.getCurrenciesNames().subscribe(
+      (response: any) => {
+        if (response.result === 'success' && response.supported_codes) {
+          this.moedas = response.supported_codes.map((currency: any) => {
+            return {
+              nome: currency[1],
+              simbolo: currency[0]
+            };
+          });
+        }
+      },
+      (error: any) => {
+        console.error('Erro ao listar as moedas:', error);
+      }
+    );
   }
 
-  convertCurrency() {
-    if (this.currencyForm.valid) {
-      const fromCurrency = this.currencyForm.get('fromCurrency').value;
-      const toCurrency = this.currencyForm.get('toCurrency').value;
-      const amount = this.currencyForm.get('amount').value;
-
-      // Implementar a lógica de conversão usando a taxa de câmbio do serviço
-      this.MoedasService.convertCurrency(fromCurrency, toCurrency, amount).subscribe(result => {
-        this.conversionResult = result;
-      });
+  converterMoeda() {
+    if (this.Moedaorigem && this.NewMoeda && this.valor) {
+      this.moedasService.getExchangeRate(this.Moedaorigem, this.NewMoeda, this.valor).subscribe(
+        (response: any) => {
+          if (response.result === 'success' && response.conversion_result) {
+            this.novoValor = response.conversion_result;
+            this.taxaConversao = response.conversion_rate;
+          }
+        },
+        (error: any) => {
+          console.error('Erro:', error);
+        }
+      );
+    } else {
+      console.error('Preencha todos os Campos');
     }
   }
 }

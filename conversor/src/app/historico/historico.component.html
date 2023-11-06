@@ -1,1 +1,60 @@
-<p>historico works!</p>
+
+
+
+<div class="custom-table-container">
+
+    <mat-form-field class="search">
+        <mat-label>Filtro...</mat-label>
+        <input matInput (input)="applyFilter($event)" placeholder="Search" #input/>
+    </mat-form-field>
+
+    <mat-table [dataSource]="history" matSort class="table">
+
+        <ng-container matColumnDef="data">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Data </mat-header-cell>
+            <mat-cell *matCellDef="let conversao"> {{ conversao.data | date: 'dd-MM-yyyy' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="hora">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Hora </mat-header-cell>
+            <mat-cell *matCellDef="let conversao"> {{ conversao.hora | date: 'HH:mm:ss' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="moedaOrigem">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Moeda Origem </mat-header-cell>
+            <mat-cell *matCellDef="let conversao"> {{ conversao.moedaOrigem }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="valorEntrada">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Valor de Entrada </mat-header-cell>
+            <mat-cell *matCellDef="let conversao"> {{ conversao.valorEntrada }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="moedaDestino">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Moeda Destino </mat-header-cell>
+            <mat-cell *matCellDef="let conversao"> {{ conversao.moedaDestino }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="valorSaida">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Valor de Saída </mat-header-cell>
+            <mat-cell *matCellDef="let conversao"> {{ conversao.valorSaida }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="taxaConversao">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Taxa de Conversão </mat-header-cell>
+            <mat-cell *matCellDef="let conversao"> {{ conversao.taxaConversao }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acoes">
+            <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+            <mat-cell *matCellDef="let conversao">
+                <button type="button" class="btn btn-danger" (click)="excluirHistorico(conversao.id)">Delete</button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons></mat-paginator>
+</div>

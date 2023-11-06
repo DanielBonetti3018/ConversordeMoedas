@@ -1,34 +1,26 @@
-<div class="container">
-    <h2>Conversor de Moedas</h2>
-    <form (ngSubmit)="convertCurrency()" [formGroup]="currencyForm">
-      <mat-form-field>
-        <mat-label>Moeda de Origem</mat-label>
-        <mat-select formControlName="fromCurrency">
-          <mat-option *ngFor="let currency of currencies" [value]="currency.symbol">
-            {{ currency.symbol }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-      <mat-form-field>
-        <mat-label>Moeda de Destino</mat-label>
-        <mat-select formControlName="toCurrency">
-          <mat-option *ngFor="let currency of currencies" [value]="currency.symbol">
-            {{ currency.symbol }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+<mat-form-field>
+    <mat-label>Moeda de Origem</mat-label>
+    <mat-select [(ngModel)]="Moedaorigem">
+      <mat-option *ngFor="let moeda of moedas" [value]="moeda.simbolo">{{ moeda.nome }} ({{ moeda.simbolo }})</mat-option>
+    </mat-select>
+  </mat-form-field>
   
-      <mat-form-field>
-        <input matInput formControlName="amount" type="number" placeholder="Quantidade a ser convertida">
-      </mat-form-field>
+  <mat-form-field>
+    <mat-label>Moeda de Destino</mat-label>
+    <mat-select [(ngModel)]="NewMoeda">
+      <mat-option *ngFor="let moeda of moedas" [value]="moeda.simbolo">{{ moeda.nome }} ({{ moeda.simbolo }})</mat-option>
+    </mat-select>
+  </mat-form-field>
   
-      <button mat-raised-button color="primary" type="submit">Converter</button>
-    </form>
+  <mat-form-field>
+    <mat-label>Valor a ser convertido</mat-label>
+    <input matInput [(ngModel)]="valor" type="number">
+  </mat-form-field>
   
-    <div *ngIf="conversionResult">
-      <p>Resultado: {{ conversionResult.amount | number: '1.2-2' }} {{ conversionResult.toCurrency }}</p>
-      <p>Taxa de Conversão: 1 {{ conversionResult.fromCurrency }} = {{ conversionResult.rate | number: '1.4-4' }} {{ conversionResult.toCurrency }}</p>
-    </div>
+  <button mat-button (click)="converterMoeda()">Converter</button>
+  
+  <div *ngIf="novoValor && taxaConversao">
+    <p>{{ valor }} em {{ Moedaorigem }} é igual a {{ novoValor }} em {{ NewMoeda }}</p>
+    <p>Taxa de conversão da moeda: {{ taxaConversao }}</p>
   </div>
   
