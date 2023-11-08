@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./conversor.component.css']
 })
 export class ConversorComponent {
-  moedas: any[] = []; // Deve ser um array de objetos com propriedades 'name' e 'symbol'
+  moedas: any[] = []; 
   moedaOrigem: string = 'selecione';
   moedaDestino: string = '';
   valor: number = 0;

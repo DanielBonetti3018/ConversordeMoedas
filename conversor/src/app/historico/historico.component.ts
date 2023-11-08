@@ -50,8 +50,8 @@ ngOnInit(): void {
 }
 
 excluirHistorico(conversao: IListHistory) {
-    this.history.data = this.historicoService.obterHistoricoCompleto();
     this.historicoService.excluirHistorico(conversao);
+    this.history.data = this.historicoService.obterHistoricoCompleto();
 }
 
 applyFilter(event: Event) {

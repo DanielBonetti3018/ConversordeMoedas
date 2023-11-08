@@ -29,7 +29,7 @@ export class HistoricoService {
     console.log('conversão', conversao)
     console.log(this.history)
     console.log('Índice:', index);
-    if (index !== -1) {
+    if (index == -1) {
       this.history.splice(index, 1);
       this.atualizarHistorico();
     
